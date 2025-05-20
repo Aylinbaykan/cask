@@ -1,97 +1,107 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📲 CASK RN Challenge - Bildirim Modülü
 
-# Getting Started
+Bu proje, React Native (v0.79) ile geliştirilen bir push notification (FCM) modülünü içermektedir. Kullanıcıya **Metin**, **Görsel** veya **YouTube bağlantılı** bildirimlerin gönderilip görüntülenmesini sağlar.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## 🚀 Özellikler
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- Firebase Cloud Messaging (FCM) ile push bildirim desteği
+- Bildirim türü seçimi (Metin, Görsel URL, YouTube URL)
+- Cihaza özel FCM Token ile hedefli gönderim
+- Gecikmeli bildirim gönderimi (X saniye sonra tetikleme)
+- Bildirim listesi ve detay görüntüleme
+- Modern ve sade kullanıcı arayüzü (NativeWind)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 🛠️ Kullanılan Teknolojiler
 
-# OR using Yarn
-yarn start
-```
+| Teknoloji           | Açıklama                                      |
+|---------------------|-----------------------------------------------|
+| React Native (v0.79)| Mobil uygulama iskeleti                       |
+| TypeScript          | Güvenli ve sürdürülebilir kod                 |
+| Firebase Cloud Messaging | Bildirim servisi                        |
+| Zustand             | State management (token, liste vb.)          |
+| React Navigation v6 | Sekmeli yapı ve ekran yönlendirme            |
+| NativeWind          | Tailwind benzeri stil altyapısı              |
+| AsyncStorage        | Lokal veri saklama (token, geçmiş)           |
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 📷 Ekranlar ve Akış
 
-### Android
+### 1️⃣ Ana Sekme: `PN`
 
-```sh
-# Using npm
-npm run android
+#### Varsayılan Durum (Seçim Yapılmadı)
+Kullanıcı henüz bir bildirim seçmemişse sade bir yönlendirme ekranı görünür.
 
-# OR using Yarn
-yarn android
-```
+![Boş Seçim](./sc/Screenshot_1747745772.png)
 
-### iOS
+#### Bildirim Seçildikten Sonra
+Bildirim türüne göre özel detay ekranı açılır:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+---
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### 2️⃣ Metin Bildirimi Detayı
 
-```sh
-bundle install
-```
+- **Başlık:** `Gönderilen Bildirim`
+- **Mesaj:** `Bu bir Metin bildirimidir.`
+- **Tarih:** Gönderim zamanı gösterilir
 
-Then, and every time you update your native dependencies, run:
+![Metin Detayı](./sc/Screenshot_1747755296.png)
 
-```sh
-bundle exec pod install
-```
+---
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 3️⃣ Görsel Bildirimi Detayı
 
-```sh
-# Using npm
-npm run ios
+- **Başlık:** `Platea elementum`
+- **Görsel:** URL'den çekilen fotoğraf
+- **Mesaj:** (varsa) gösterilir
 
-# OR using Yarn
-yarn ios
-```
+![Görsel Detayı](./sc/Screenshot_1747755302.png)
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### 4️⃣ YouTube Bildirimi Detayı
 
-## Step 3: Modify your app
+> (Görsel burada yoksa aynı yapı içinde `WebView` veya `Thumbnail + Aç` şeklinde uygulanır.)
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### 5️⃣ Bildirim Gönderme Ekranı
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Kullanıcı, test amaçlı manuel olarak bildirim gönderebilir.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+#### 🧩 Bileşenler:
+- **FCM Token:** Otomatik alınır ve kopyalanabilir
+- **Bildirim Türü:** Dropdown (Metin, Görsel URL, YouTube URL)
+- **Gecikme:** İsteğe bağlı saniye cinsinden gönderim gecikmesi
 
-## Congratulations! :tada:
+![Gönderim Formu](./sc/Screenshot_1747745778.png)
+![Tür Seçimi](./sc/Screenshot_1747745782.png)
+![Gecikmeli Gönderim](./sc/Screenshot_1747745792.png)
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+### 6️⃣ Bildirim Listesi Ekranı
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Kullanıcının aldığı tüm bildirimler burada listelenir.
 
-# Troubleshooting
+#### İçerik:
+- Başlık ve kısa açıklama
+- Bildirim gönderim zamanı
+- Tıklanınca `PN` sekmesindeki detay ekranına yönlendirir
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+![Bildirim Listesi](./sc/Screenshot_1747755294.png)
 
-# Learn More
+---
 
-To learn more about React Native, take a look at the following resources:
+## ⚙️ Kurulum
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+```bash
+git clone https://github.com/Aylinbaykan/cask.git
+cd cask
+npm install
+cd ios && pod install && cd ..
+npx react-native run-android

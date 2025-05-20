@@ -105,3 +105,33 @@ cd cask
 npm install
 cd ios && pod install && cd ..
 npx react-native run-android
+
+---
+
+## 🔒 Gizli Dosyalar (Sensitive Files) Hakkında
+
+Bu projede Firebase entegrasyonu için aşağıdaki iki özel yapılandırma dosyasına ihtiyaç duyulur:
+
+- `android/app/google-services.json`
+- `ios/GoogleService-Info.plist`
+
+Bu dosyalar Firebase'e ait gizli anahtarları ve proje kimliğini içerdiğinden, **güvenlik gerekçesiyle `.gitignore` dosyasına eklenmiş ve GitHub'a dahil edilmemiştir.**
+
+### 📌 Neden `.gitignore` kullanıldı?
+
+- Bu dosyaların herkese açık bir repoya eklenmesi, Firebase projesinin yetkisiz kişiler tarafından kullanılmasına neden olabilir.
+- GitHub, bu gibi sızmaları tespit edip uyarı verir (Secret scanning).
+- Proje güvenliğini korumak için bu dosyalar sadece geliştirici makinelerinde bulunmalı, repoya eklenmemelidir.
+
+### 🛠️ Uygulamayı çalıştırmak için yapılması gerekenler:
+
+Firebase entegrasyonunun çalışabilmesi için bu dosyaların manuel olarak eklenmesi gerekir:
+
+1. Firebase Console’a giriş yap
+2. Kendi Android ve iOS uygulamanı oluştur
+3. Aşağıdaki dosyaları indir:
+   - `google-services.json` → `android/app/` dizinine
+   - `GoogleService-Info.plist` → `ios/` dizinine
+4. Uygulamayı yeniden başlat
+
+> Bu sayede hem proje güvenliği sağlanır hem de uygulama Firebase servislerine başarılı şekilde bağlanabilir.
